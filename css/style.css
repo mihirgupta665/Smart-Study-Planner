@@ -36,21 +36,42 @@ body {
     background: #0f172a;
 }
 
-.navbar ul {
+.nav-container {
     display: flex;
-    justify-content: space-around;
-    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
 }
 
-.navbar li {
+.nav-logo {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
     padding: 1rem;
     color: #cbd5f5;
     cursor: pointer;
     transition: background 0.3s;
 }
 
-.navbar li:hover,
-.navbar li.active {
+.nav-links li:hover,
+.nav-links li.active {
     background: #1e293b;
     color: #fff;
 }
@@ -64,6 +85,8 @@ body {
 /* ================= SECTIONS ================= */
 .section {
     display: none;
+    position: relative;
+    z-index: 1;
 }
 
 .section.active {
@@ -98,20 +121,27 @@ body {
 }
 
 /* ================= FORMS ================= */
-form {
+.form-stack {
     margin-top: 1rem;
     display: grid;
     gap: 0.7rem;
     max-width: 400px;
 }
 
+.time-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
 input,
 select,
 button {
-    padding: 0.6rem;
+    padding: 0.65rem;
     border-radius: 5px;
     border: 1px solid #ccc;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    pointer-events: auto;
+    z-index: 5;
 }
 
 button {
@@ -130,11 +160,11 @@ button.danger {
 }
 
 /* ================= LISTS ================= */
-ul {
+.list {
     margin-top: 1rem;
 }
 
-ul li {
+.list li {
     background: #fff;
     padding: 0.7rem;
     margin-bottom: 0.5rem;
@@ -153,10 +183,23 @@ ul li {
     border-radius: 8px;
 }
 
+.analytics-chart {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 1.5rem 0;
+}
+
+.chart-legend {
+    font-size: 0.9rem;
+}
+
 /* ================= SETTINGS ================= */
-#settings button {
-    margin-top: 0.5rem;
-    width: 200px;
+.settings-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-width: 220px;
 }
 
 /* ================= FOOTER ================= */
@@ -181,7 +224,7 @@ body.dark .footer {
 }
 
 body.dark .card,
-body.dark ul li,
+body.dark .list li,
 body.dark #analyticsContainer {
     background: #020617;
     border: 1px solid #1e293b;
@@ -194,14 +237,56 @@ body.dark select {
     border-color: #334155;
 }
 
-.section {
-    position: relative;
-    z-index: 1;
-}
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
 
-input,
-select,
-button {
-    pointer-events: auto;
-    z-index: 5;
+    .container {
+        padding: 1rem;
+    }
+
+    /* Navbar */
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+        background: #0f172a;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        border-top: 1px solid #1e293b;
+        text-align: center;
+    }
+
+    /* Dashboard */
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* Forms */
+    .form-stack {
+        max-width: 100%;
+    }
+
+    .time-group {
+        flex-direction: column;
+    }
+
+    /* Analytics */
+    .analytics-chart {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    canvas {
+        width: 240px;
+        height: 240px;
+    }
 }

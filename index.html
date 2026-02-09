@@ -11,24 +11,35 @@
 
 <body>
 
+    <!-- ================= HEADER ================= -->
     <header class="header">
         <h1>Smart Study Planner</h1>
         <p>Plan smart. Study better. Track progress.</p>
     </header>
 
+    <!-- ================= NAVBAR ================= -->
     <nav class="navbar">
-        <ul>
-            <li data-target="dashboard">Dashboard</li>
-            <li data-target="subjects">Subjects</li>
-            <li data-target="schedule">Schedule</li>
-            <li data-target="tasks">Tasks</li>
-            <li data-target="analytics">Analytics</li>
-            <li data-target="settings">Settings</li>
-        </ul>
+        <div class="nav-container">
+            <span class="nav-logo">📘 Planner</span>
+
+            <!-- Mobile menu button -->
+            <button class="nav-toggle" id="navToggle">☰</button>
+
+            <ul class="nav-links" id="navLinks">
+                <li data-target="dashboard">Dashboard</li>
+                <li data-target="subjects">Subjects</li>
+                <li data-target="schedule">Schedule</li>
+                <li data-target="tasks">Tasks</li>
+                <li data-target="analytics">Analytics</li>
+                <li data-target="settings">Settings</li>
+            </ul>
+        </div>
     </nav>
 
+    <!-- ================= MAIN CONTENT ================= -->
     <main class="container">
 
+        <!-- ===== Dashboard ===== -->
         <section id="dashboard" class="section active">
             <h2>Dashboard</h2>
 
@@ -50,10 +61,11 @@
             </div>
         </section>
 
+        <!-- ===== Subject Management ===== -->
         <section id="subjects" class="section">
             <h2>Subject Management</h2>
 
-            <form id="subjectForm">
+            <form id="subjectForm" class="form-stack">
                 <input type="text" id="subjectName" placeholder="Subject Name" required />
 
                 <select id="subjectPriority">
@@ -67,13 +79,14 @@
                 <button type="submit">Add Subject</button>
             </form>
 
-            <ul id="subjectList"></ul>
+            <ul id="subjectList" class="list"></ul>
         </section>
 
+        <!-- ===== Schedule Planner ===== -->
         <section id="schedule" class="section">
             <h2>Schedule Planner</h2>
 
-            <form id="scheduleForm">
+            <form id="scheduleForm" class="form-stack">
                 <select id="scheduleDay">
                     <option>Monday</option>
                     <option>Tuesday</option>
@@ -84,21 +97,24 @@
                     <option>Sunday</option>
                 </select>
 
-                <input type="time" id="startTime" />
-                <input type="time" id="endTime" />
+                <div class="time-group">
+                    <input type="time" id="startTime" />
+                    <input type="time" id="endTime" />
+                </div>
 
                 <select id="scheduleSubject"></select>
 
                 <button type="submit">Add Schedule</button>
             </form>
 
-            <div id="scheduleList"></div>
+            <div id="scheduleList" class="list"></div>
         </section>
 
+        <!-- ===== Task Manager ===== -->
         <section id="tasks" class="section">
             <h2>Task Manager</h2>
 
-            <form id="taskForm">
+            <form id="taskForm" class="form-stack">
                 <input type="text" id="taskTitle" placeholder="Task Title" required />
 
                 <select id="taskType">
@@ -108,40 +124,47 @@
                 </select>
 
                 <input type="date" id="taskDeadline" />
+
                 <button type="submit">Add Task</button>
             </form>
 
-            <ul id="taskList"></ul>
+            <ul id="taskList" class="list"></ul>
         </section>
 
+        <!-- ===== Progress Analytics ===== -->
         <section id="analytics" class="section">
             <h2>Progress Analytics</h2>
 
             <div id="analyticsContainer"></div>
 
-            <div style="display:flex; flex-wrap:wrap; gap:2rem; margin:1.5rem 0; align-items:center;">
-                <canvas id="subjectChart" width="300" height="300"></canvas>
-                <div id="chartLegend"></div>
+            <div class="analytics-chart">
+                <canvas id="subjectChart" width="280" height="280"></canvas>
+                <div id="chartLegend" class="chart-legend"></div>
             </div>
 
             <div id="subjectLoadContainer"></div>
         </section>
 
+        <!-- ===== Settings ===== -->
         <section id="settings" class="section">
             <h2>Settings</h2>
 
-            <button id="toggleTheme">Toggle Dark / Light Mode</button>
-            <button id="exportData">Export Data</button>
-            <button id="resetData" class="danger">Reset All Data</button>
+            <div class="settings-actions">
+                <button id="toggleTheme">Toggle Dark / Light Mode</button>
+                <button id="exportData">Export Data</button>
+                <button id="resetData" class="danger">Reset All Data</button>
+            </div>
         </section>
 
     </main>
 
+    <!-- ================= FOOTER ================= -->
     <footer class="footer">
         <p>Smart Study Planner | Built by Mihir Gupta</p>
         <p>&copy; 2026 | All Rights Reserved</p>
     </footer>
 
+    <!-- ================= JAVASCRIPT ================= -->
     <script src="js/storage.js"></script>
     <script src="js/subjects.js"></script>
     <script src="js/schedule.js"></script>
