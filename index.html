@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Study Planner</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Smart Study Planner</h1>
+        <p>Plan smart. Study better. Track progress.</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li data-target="dashboard">Dashboard</li>
+            <li data-target="subjects">Subjects</li>
+            <li data-target="schedule">Schedule</li>
+            <li data-target="tasks">Tasks</li>
+            <li data-target="analytics">Analytics</li>
+            <li data-target="settings">Settings</li>
+        </ul>
+    </nav>
+
+    <main class="container">
+
+        <section id="dashboard" class="section active">
+            <h2>Dashboard</h2>
+
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Total Subjects</h3>
+                    <p id="totalSubjects">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Pending Tasks</h3>
+                    <p id="pendingTasks">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Today's Schedule</h3>
+                    <p id="todaySchedule">No schedule</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="subjects" class="section">
+            <h2>Subject Management</h2>
+
+            <form id="subjectForm">
+                <input type="text" id="subjectName" placeholder="Subject Name" required />
+
+                <select id="subjectPriority">
+                    <option value="High">High Priority</option>
+                    <option value="Medium">Medium Priority</option>
+                    <option value="Low">Low Priority</option>
+                </select>
+
+                <input type="number" id="weeklyHours" placeholder="Weekly Study Hours" />
+
+                <button type="submit">Add Subject</button>
+            </form>
+
+            <ul id="subjectList"></ul>
+        </section>
+
+        <section id="schedule" class="section">
+            <h2>Schedule Planner</h2>
+
+            <form id="scheduleForm">
+                <select id="scheduleDay">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+
+                <input type="time" id="startTime" />
+                <input type="time" id="endTime" />
+
+                <select id="scheduleSubject"></select>
+
+                <button type="submit">Add Schedule</button>
+            </form>
+
+            <div id="scheduleList"></div>
+        </section>
+
+        <section id="tasks" class="section">
+            <h2>Task Manager</h2>
+
+            <form id="taskForm">
+                <input type="text" id="taskTitle" placeholder="Task Title" required />
+
+                <select id="taskType">
+                    <option>Assignment</option>
+                    <option>Exam</option>
+                    <option>Revision</option>
+                </select>
+
+                <input type="date" id="taskDeadline" />
+                <button type="submit">Add Task</button>
+            </form>
+
+            <ul id="taskList"></ul>
+        </section>
+
+        <section id="analytics" class="section">
+            <h2>Progress Analytics</h2>
+
+            <div id="analyticsContainer"></div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:2rem; margin:1.5rem 0; align-items:center;">
+                <canvas id="subjectChart" width="300" height="300"></canvas>
+                <div id="chartLegend"></div>
+            </div>
+
+            <div id="subjectLoadContainer"></div>
+        </section>
+
+        <section id="settings" class="section">
+            <h2>Settings</h2>
+
+            <button id="toggleTheme">Toggle Dark / Light Mode</button>
+            <button id="exportData">Export Data</button>
+            <button id="resetData" class="danger">Reset All Data</button>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Smart Study Planner | Built by Mihir Gupta</p>
+        <p>&copy; 2026 | All Rights Reserved</p>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/subjects.js"></script>
+    <script src="js/schedule.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/settings.js"></script>
+
+</body>
+
+</html>

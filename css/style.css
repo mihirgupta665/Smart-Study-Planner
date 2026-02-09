@@ -1,0 +1,207 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================= HEADER ================= */
+.header {
+    background: #1e293b;
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+}
+
+.header p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    background: #0f172a;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.navbar li {
+    padding: 1rem;
+    color: #cbd5f5;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.navbar li:hover,
+.navbar li.active {
+    background: #1e293b;
+    color: #fff;
+}
+
+/* ================= MAIN ================= */
+.container {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+/* ================= SECTIONS ================= */
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* ================= DASHBOARD ================= */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.card {
+    background: #fff;
+    padding: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+/* ================= FORMS ================= */
+form {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.7rem;
+    max-width: 400px;
+}
+
+input,
+select,
+button {
+    padding: 0.6rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+
+button {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e40af;
+}
+
+button.danger {
+    background: #dc2626;
+}
+
+/* ================= LISTS ================= */
+ul {
+    margin-top: 1rem;
+}
+
+ul li {
+    background: #fff;
+    padding: 0.7rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ================= ANALYTICS ================= */
+#analyticsContainer {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+}
+
+/* ================= SETTINGS ================= */
+#settings button {
+    margin-top: 0.5rem;
+    width: 200px;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    text-align: center;
+    padding: 0.8rem;
+    background: #0f172a;
+    color: #cbd5f5;
+    font-size: 0.85rem;
+}
+
+/* ================= DARK MODE ================= */
+body.dark {
+    background: #020617;
+    color: #e5e7eb;
+}
+
+body.dark .header,
+body.dark .navbar,
+body.dark .footer {
+    background: #020617;
+}
+
+body.dark .card,
+body.dark ul li,
+body.dark #analyticsContainer {
+    background: #020617;
+    border: 1px solid #1e293b;
+}
+
+body.dark input,
+body.dark select {
+    background: #020617;
+    color: #fff;
+    border-color: #334155;
+}
+
+.section {
+    position: relative;
+    z-index: 1;
+}
+
+input,
+select,
+button {
+    pointer-events: auto;
+    z-index: 5;
+}
