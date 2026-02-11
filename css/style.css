@@ -1,39 +1,75 @@
+all shedule are coming in one line i want to come in horizontal different rows
+
+/* ================= ROOT VARIABLES ================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --accent: #22c55e;
+    --danger: #dc2626;
+
+    --bg: #f4f6f9;
+    --bg-soft: rgba(255, 255, 255, 0.9);
+    --text: #1f2937;
+    --muted: #6b7280;
+
+    --glass: rgba(255, 255, 255, 0.65);
+    --blur: blur(14px);
+}
+
 /* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
 body {
-    background-color: #f4f6f9;
-    color: #222;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    color: var(--text);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background 0.4s, color 0.4s;
 }
 
 /* ================= HEADER ================= */
 .header {
-    background: #1e293b;
+    background: linear-gradient(135deg, #1e293b, #020617);
     color: #fff;
-    padding: 1.5rem;
+    padding: 2rem 1rem;
     text-align: center;
 }
 
-.header h1 {
-    font-size: 1.8rem;
+.header-content {
+    max-width: 900px;
+    margin: auto;
 }
 
-.header p {
+.app-title {
+    font-size: 2.1rem;
+}
+
+.subtitle {
     font-size: 0.95rem;
     opacity: 0.85;
 }
 
+.streak-box {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.35rem 0.8rem;
+    border-radius: 20px;
+    display: inline-block;
+}
+
 /* ================= NAVBAR ================= */
 .navbar {
-    background: #0f172a;
+    background: #020617;
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
 
 .nav-container {
@@ -45,16 +81,15 @@ body {
 
 .nav-logo {
     color: #fff;
-    font-weight: bold;
-    font-size: 1.1rem;
+    font-weight: 700;
 }
 
 .nav-toggle {
     display: none;
     background: none;
     border: none;
-    font-size: 1.6rem;
     color: #fff;
+    font-size: 1.6rem;
     cursor: pointer;
 }
 
@@ -63,17 +98,36 @@ body {
     display: flex;
 }
 
-.nav-links li {
+.nav-item {
     padding: 1rem;
     color: #cbd5f5;
     cursor: pointer;
-    transition: background 0.3s;
+    position: relative;
 }
 
-.nav-links li:hover,
-.nav-links li.active {
-    background: #1e293b;
+.nav-item::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: 0.3s;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+    width: 60%;
+    left: 20%;
+}
+
+.badge {
+    background: var(--danger);
     color: #fff;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
 }
 
 /* ================= MAIN ================= */
@@ -82,50 +136,226 @@ body {
     padding: 1.5rem;
 }
 
+.main-layout {
+    max-width: 1200px;
+    margin: auto;
+}
+
 /* ================= SECTIONS ================= */
 .section {
     display: none;
-    position: relative;
-    z-index: 1;
+    animation: fadeUp 0.4s ease;
 }
 
 .section.active {
     display: block;
 }
 
+.section-header {
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
 /* ================= DASHBOARD ================= */
+
+/* TOP STATS */
 .dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
 }
 
+/* MAIN GRID (PC FIRST) */
+.dashboard-grid {
+    margin-top: 1.8rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "today completion next"
+        "weekly weekly urgent";
+    gap: 1.2rem;
+}
+
+/* POSITIONING */
+.dashboard-grid>.card:nth-child(1) {
+    grid-area: next;
+}
+
+.dashboard-grid>.card:nth-child(2) {
+    grid-area: today;
+}
+
+.dashboard-grid>.card:nth-child(3) {
+    grid-area: completion;
+}
+
+.dashboard-grid>.card:nth-child(4) {
+    grid-area: weekly;
+}
+
+.dashboard-grid>.card:nth-child(5) {
+    grid-area: urgent;
+}
+
+.dashboard-grid .card {
+    min-height: 140px;
+}
+
+/* ================= CARDS ================= */
 .card {
-    background: #fff;
-    padding: 1.2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    text-align: center;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    padding: 1.3rem;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.card h3 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
 }
 
-.card p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #2563eb;
+.big-number {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-value,
+.percent-text {
+    font-weight: 700;
+}
+
+/* ================= PROGRESS ================= */
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #1e293b;
+    /* dark background */
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    border-radius: 6px;
+    transition: width 0.6s ease-in-out;
+}   
+
+/* ================= WEEK BAR ================= */
+.week-bar {
+    display: flex;
+    gap: 6px;
+}
+
+/* ================= WEEKLY CONSISTENCY ================= */
+
+.week-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.week-bar span {
+    flex: 1;
+    height: 14px;
+    /* Bigger */
+    border-radius: 20px;
+    background: #1e293b;
+    /* Dark inactive */
+    transition: all 0.4s ease;
+}
+
+/* Active Day */
+.week-bar span.active {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+    transform: scaleY(1.2);
+}
+
+.gradient-orange {
+    background: linear-gradient(135deg, #fb923c, #ea580c);
+    color: #fff;
+}
+
+.gradient-green {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: #fff;
+}
+
+/* ================= LAYOUTS ================= */
+.split-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 1.5rem;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+/* ================= SCHEDULE SECTION ================= */
+
+/* Main schedule layout */
+#schedule .grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Schedule form stays left */
+#scheduleForm {
+    height: fit-content;
+}
+
+/* All schedules container */
+#scheduleList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+/* Each schedule card */
+#scheduleList .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+}
+
+/* Bottom row: Today + Free Slots */
+#schedule .card:nth-last-child(2),
+#schedule .card:nth-last-child(1) {
+    grid-column: span 1;
+}
+
+/* Make Today Schedule + Free Slots side by side */
+#schedule .card:has(#todayScheduleTimeline),
+#schedule .card:has(#freeTimeSlots) {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Desktop bottom row layout */
+#schedule .grid-layout>.card:nth-child(3),
+#schedule .grid-layout>.card:nth-child(4) {
+    grid-column: span 1;
 }
 
 /* ================= FORMS ================= */
 .form-stack {
-    margin-top: 1rem;
     display: grid;
     gap: 0.7rem;
-    max-width: 400px;
 }
 
 .time-group {
@@ -136,97 +366,110 @@ body {
 input,
 select,
 button {
-    padding: 0.65rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
     font-size: 0.95rem;
-    pointer-events: auto;
-    z-index: 5;
 }
 
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* ================= BUTTONS ================= */
 button {
-    background: #2563eb;
-    color: #fff;
-    border: none;
+    background: var(--primary);
+    color: #f88;
     cursor: pointer;
+    font-weight: 600;
+    border: red;
 }
 
 button:hover {
-    background: #1e40af;
+    background: var(--primary-dark);
+}
+
+.btn.secondary {
+    background: #475569;
 }
 
 button.danger {
-    background: #dc2626;
+    background: var(--danger);
 }
 
 /* ================= LISTS ================= */
-.list {
-    margin-top: 1rem;
-}
-
 .list li {
-    background: #fff;
+    background: var(--bg-soft);
     padding: 0.7rem;
-    margin-bottom: 0.5rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.mini-list {
+    list-style: none;
+}
+
+.mini-list li {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+/* ================= TIMELINE ================= */
+.timeline div {
+    padding: 0.5rem;
+    border-left: 3px solid var(--primary);
+    margin-bottom: 0.5rem;
+}
+
 /* ================= ANALYTICS ================= */
-#analyticsContainer {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #fff;
-    border-radius: 8px;
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
 .analytics-chart {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin: 1.5rem 0;
 }
 
 .chart-legend {
-    font-size: 0.9rem;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
 }
 
 /* ================= SETTINGS ================= */
 .settings-actions {
+    max-width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    max-width: 220px;
+    gap: 0.7rem;
 }
 
 /* ================= FOOTER ================= */
 .footer {
     text-align: center;
-    padding: 0.8rem;
-    background: #0f172a;
+    padding: 0.9rem;
+    background: #020617;
     color: #cbd5f5;
     font-size: 0.85rem;
 }
 
 /* ================= DARK MODE ================= */
 body.dark {
-    background: #020617;
+    background: linear-gradient(135deg, #020617, #020617);
     color: #e5e7eb;
 }
 
-body.dark .header,
-body.dark .navbar,
-body.dark .footer {
-    background: #020617;
-}
-
 body.dark .card,
-body.dark .list li,
-body.dark #analyticsContainer {
-    background: #020617;
+body.dark .list li {
+    background: rgba(2, 6, 23, 0.7);
     border: 1px solid #1e293b;
 }
 
@@ -237,56 +480,95 @@ body.dark select {
     border-color: #334155;
 }
 
-/* ================= MOBILE RESPONSIVE ================= */
-@media (max-width: 768px) {
-
-    .container {
-        padding: 1rem;
+/* ================= ANIMATION ================= */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
     }
 
-    /* Navbar */
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
     .nav-toggle {
         display: block;
     }
 
     .nav-links {
+        display: none;
         flex-direction: column;
         width: 100%;
-        display: none;
-        background: #0f172a;
+        background: #020617;
     }
 
     .nav-links.show {
         display: flex;
     }
 
-    .nav-links li {
-        border-top: 1px solid #1e293b;
-        text-align: center;
-    }
-
-    /* Dashboard */
     .dashboard-cards {
         grid-template-columns: 1fr;
     }
 
-    /* Forms */
-    .form-stack {
-        max-width: 100%;
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas: none;
+    }
+
+    .split-layout {
+        grid-template-columns: 1fr;
     }
 
     .time-group {
         flex-direction: column;
     }
+}
 
-    /* Analytics */
-    .analytics-chart {
-        flex-direction: column;
-        align-items: center;
-    }
+body:not(.dark) .settings-actions button {
+    color: #1f2937;
+}
 
-    canvas {
-        width: 240px;
-        height: 240px;
-    }
+/* ================= ANALYTICS LEGEND FIX ================= */
+
+.chart-legend div {
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+body.dark .legend-item {
+    color: #e5e7eb;
+}
+
+/* ================= FORCE LEGEND TEXT COLOR ================= */
+
+#chartLegend {
+    margin-top: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Light Theme */
+body:not(.dark) .legend-item {
+    color: #1f2937 !important;
+}
+
+/* Dark Theme */
+body.dark .legend-item {
+    color: #e5e7eb !important;
 }

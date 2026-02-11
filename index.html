@@ -5,170 +5,249 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smart Study Planner</title>
-
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body>
+<body class="light-theme app-root">
 
     <!-- ================= HEADER ================= -->
     <header class="header">
-        <h1>Smart Study Planner</h1>
-        <p>Plan smart. Study better. Track progress.</p>
+        <div class="header-content">
+            <h1 class="app-title">📘 Smart Study Planner</h1>
+            <p class="subtitle">Plan smart. Study better. Track progress.</p>
+
+            <div class="streak-box">
+                🔥 Study Streak:
+                <span id="studyStreak">0</span> days
+            </div>
+        </div>
     </header>
 
     <!-- ================= NAVBAR ================= -->
     <nav class="navbar">
         <div class="nav-container">
-            <span class="nav-logo">📘 Planner</span>
-
-            <!-- Mobile menu button -->
+            <span class="nav-logo">Planner</span>
             <button class="nav-toggle" id="navToggle">☰</button>
 
             <ul class="nav-links" id="navLinks">
-                <li data-target="dashboard">Dashboard</li>
-                <li data-target="subjects">Subjects</li>
-                <li data-target="schedule">Schedule</li>
-                <li data-target="tasks">Tasks</li>
-                <li data-target="analytics">Analytics</li>
-                <li data-target="settings">Settings</li>
+                <li data-target="dashboard" class="nav-item active">Dashboard</li>
+                <li data-target="subjects" class="nav-item">Subjects</li>
+                <li data-target="schedule" class="nav-item">Schedule</li>
+                <li data-target="tasks" class="nav-item">
+                    Tasks <span class="badge" id="taskBadge">0</span>
+                </li>
+                <li data-target="analytics" class="nav-item">Analytics</li>
+                <li data-target="settings" class="nav-item">Settings</li>
             </ul>
         </div>
     </nav>
 
-    <!-- ================= MAIN CONTENT ================= -->
-    <main class="container">
+    <main class="container main-layout">
 
-        <!-- ===== Dashboard ===== -->
+        <!-- ================= DASHBOARD ================= -->
         <section id="dashboard" class="section active">
-            <h2>Dashboard</h2>
+
+            <header class="section-header">
+                <h2>📊 Dashboard Overview</h2>
+                <p>Your study status at a glance</p>
+            </header>
 
             <div class="dashboard-cards">
-                <div class="card">
+                <div class="card gradient-blue">
                     <h3>Total Subjects</h3>
-                    <p id="totalSubjects">0</p>
+                    <p id="totalSubjects" class="big-number">0</p>
                 </div>
 
-                <div class="card">
+                <div class="card gradient-orange">
                     <h3>Pending Tasks</h3>
-                    <p id="pendingTasks">0</p>
+                    <p id="pendingTasks" class="big-number">0</p>
+                </div>
+
+                <div class="card gradient-green">
+                    <h3>Study Time Today</h3>
+                    <p id="todayStudyTime">0 hrs</p>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>⏭ Next Upcoming Task</h3>
+                    <p id="nextTaskTitle">No upcoming task</p>
+                    <small id="nextTaskDeadline">—</small>
                 </div>
 
                 <div class="card">
-                    <h3>Today's Schedule</h3>
-                    <p id="todaySchedule">No schedule</p>
+                    <h3>📌 Today’s Tasks</h3>
+                    <ul id="todayTaskList" class="mini-list"></ul>
+                </div>
+
+                <div class="card">
+                    <h3>✅ Completion Rate</h3>
+                    <p id="completionRate">0%</p>
+                    <div class="progress-bar">
+                        <div id="completionProgress" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📅 Weekly Consistency</h3>
+                    <div id="weeklyConsistency" class="week-bar"></div>
+                </div>
+
+                <div class="card">
+                    <h3>⚠️ Most Urgent Subject</h3>
+                    <p id="urgentSubject">None</p>
                 </div>
             </div>
+
         </section>
 
-        <!-- ===== Subject Management ===== -->
+        <!-- ================= SUBJECTS ================= -->
         <section id="subjects" class="section">
-            <h2>Subject Management</h2>
+            <header class="section-header">
+                <h2>📚 Subject Management</h2>
+            </header>
 
-            <form id="subjectForm" class="form-stack">
-                <input type="text" id="subjectName" placeholder="Subject Name" required />
+            <div class="split-layout">
+                <form id="subjectForm" class="form-stack card">
+                    <input type="text" id="subjectName" placeholder="Subject Name" required />
+                    <select id="subjectPriority">
+                        <option value="High">🔥 High</option>
+                        <option value="Medium">⚡ Medium</option>
+                        <option value="Low">🌱 Low</option>
+                    </select>
+                    <input type="number" id="weeklyHours" placeholder="Weekly Study Hours" />
+                    <button type="submit">➕ Add Subject</button>
+                </form>
 
-                <select id="subjectPriority">
-                    <option value="High">High Priority</option>
-                    <option value="Medium">Medium Priority</option>
-                    <option value="Low">Low Priority</option>
-                </select>
-
-                <input type="number" id="weeklyHours" placeholder="Weekly Study Hours" />
-
-                <button type="submit">Add Subject</button>
-            </form>
-
-            <ul id="subjectList" class="list"></ul>
+                <ul id="subjectList" class="list"></ul>
+            </div>
         </section>
 
-        <!-- ===== Schedule Planner ===== -->
+        <!-- ================= SCHEDULE ================= -->
         <section id="schedule" class="section">
-            <h2>Schedule Planner</h2>
 
-            <form id="scheduleForm" class="form-stack">
-                <select id="scheduleDay">
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-                    <option>Saturday</option>
-                    <option>Sunday</option>
-                </select>
+            <header class="section-header">
+                <h2>🗓 Schedule Planner</h2>
+            </header>
 
-                <div class="time-group">
-                    <input type="time" id="startTime" />
-                    <input type="time" id="endTime" />
+            <div class="grid-layout">
+
+                <form id="scheduleForm" class="form-stack card">
+                    <select id="scheduleDay">
+                        <option value="">Select Day</option>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+
+                    <div class="time-group">
+                        <input type="time" id="startTime" />
+                        <input type="time" id="endTime" />
+                    </div>
+
+                    <select id="scheduleSubject"></select>
+                    <button type="submit">📌 Add Schedule</button>
+                </form>
+
+                
+                <div id="scheduleList" style="
+    display: flex; flex-wrap: wrap; gap:50px;"></div>
+
+                <div class="card">
+                    <h3>🕒 Today’s Schedule</h3>
+                    <div id="todayScheduleTimeline"></div>
                 </div>
 
-                <select id="scheduleSubject"></select>
+                <div class="card">
+                    <h3>🟢 Free Time Slots</h3>
+                    <ul id="freeTimeSlots" class="mini-list"></ul>
+                </div>
 
-                <button type="submit">Add Schedule</button>
-            </form>
-
-            <div id="scheduleList" class="list"></div>
-        </section>
-
-        <!-- ===== Task Manager ===== -->
-        <section id="tasks" class="section">
-            <h2>Task Manager</h2>
-
-            <form id="taskForm" class="form-stack">
-                <input type="text" id="taskTitle" placeholder="Task Title" required />
-
-                <select id="taskType">
-                    <option>Assignment</option>
-                    <option>Exam</option>
-                    <option>Revision</option>
-                </select>
-
-                <input type="date" id="taskDeadline" />
-
-                <button type="submit">Add Task</button>
-            </form>
-
-            <ul id="taskList" class="list"></ul>
-        </section>
-
-        <!-- ===== Progress Analytics ===== -->
-        <section id="analytics" class="section">
-            <h2>Progress Analytics</h2>
-
-            <div id="analyticsContainer"></div>
-
-            <div class="analytics-chart">
-                <canvas id="subjectChart" width="280" height="280"></canvas>
-                <div id="chartLegend" class="chart-legend"></div>
             </div>
 
-            <div id="subjectLoadContainer"></div>
         </section>
 
-        <!-- ===== Settings ===== -->
-        <section id="settings" class="section">
-            <h2>Settings</h2>
+        <!-- ================= TASKS ================= -->
+        <section id="tasks" class="section">
+            <header class="section-header">
+                <h2>✅ Task Manager</h2>
+            </header>
 
-            <div class="settings-actions">
-                <button id="toggleTheme">Toggle Dark / Light Mode</button>
-                <button id="exportData">Export Data</button>
-                <button id="resetData" class="danger">Reset All Data</button>
+            <div class="split-layout">
+                <form id="taskForm" class="form-stack card">
+                    <input type="text" id="taskTitle" placeholder="Task Title" required />
+                    <select id="taskType">
+                        <option>Assignment</option>
+                        <option>Exam</option>
+                        <option>Revision</option>
+                    </select>
+                    <input type="date" id="taskDeadline" />
+                    <button type="submit">➕ Add Task</button>
+                </form>
+
+                <ul id="taskList" class="list"></ul>
+            </div>
+        </section>
+
+        <!-- ================= ANALYTICS ================= -->
+        <section id="analytics" class="section">
+            <header class="section-header">
+                <h2>📈 Progress Analytics</h2>
+            </header>
+
+            <div id="analyticsContainer" hidden></div>
+            <div id="subjectLoadContainer" hidden></div>
+
+            <div class="analytics-grid">
+                <div class="card">
+                    <h3>📊 Subject Study Distribution</h3>
+                    <canvas id="subjectChart" width="300" height="300"></canvas>
+                    <div id="chartLegend"></div>
+                </div>
+
+                <div class="card">
+                    <h3>🧩 Task Status Overview</h3>
+                    <canvas id="taskStatusChart" width="300" height="300"></canvas>
+                </div>
+
+                <div class="card">
+                    <h3>📅 Weekly Task Trend</h3>
+                    <canvas id="weeklyTaskChart" width="500" height="250"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SETTINGS ================= -->
+        <section id="settings" class="section">
+            <header class="section-header">
+                <h2>⚙️ Settings</h2>
+            </header>
+
+            <div class="settings-actions card">
+                <button id="toggleTheme">🌙 Toggle Theme</button>
+                <button id="exportData">📤 Export Data</button>
+                <button id="resetData" class="danger">🗑 Reset All Data</button>
             </div>
         </section>
 
     </main>
 
-    <!-- ================= FOOTER ================= -->
     <footer class="footer">
-        <p>Smart Study Planner | Built by Mihir Gupta</p>
-        <p>&copy; 2026 | All Rights Reserved</p>
+        <p>Smart Study Planner | Built by <strong>Mihir Gupta</strong></p>
+        <p>&copy; 2026</p>
     </footer>
 
-    <!-- ================= JAVASCRIPT ================= -->
+    <!-- JS -->
     <script src="js/storage.js"></script>
     <script src="js/subjects.js"></script>
     <script src="js/schedule.js"></script>
     <script src="js/tasks.js"></script>
+    <script src="js/dashboard.js"></script>
     <script src="js/analytics.js"></script>
     <script src="js/settings.js"></script>
 
